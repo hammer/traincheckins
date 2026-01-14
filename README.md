@@ -1,73 +1,57 @@
-# React + TypeScript + Vite
+# Tube Check-in
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A mobile-first Progressive Web App for checking in when boarding London Underground trains.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Manual Check-in**: Enter the 5-digit leading car number displayed on the front of the train
+- **Find Nearby Trains**: Select your line and station to see real-time train arrivals with their 5-digit IDs
+- **Journey Tracking**: Track your journey duration with a live timer
+- **Auto-detect Line**: The app can identify the line from the train number prefix
 
-## React Compiler
+## Supported Lines
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Real-time Train Detection (TrackerNet)
+These lines support the "Find Nearby Trains" feature:
+- Victoria (11xxx)
+- Jubilee (96xxx)
+- Northern (51xxx)
+- Central (91xxx)
+- District (21xxx)
 
-## Expanding the ESLint configuration
+### Manual Check-in Only
+All tube lines are supported for manual check-in, including Metropolitan, Hammersmith & City, Circle, Bakerloo, and Piccadilly.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## How It Works
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+The app uses TfL's TrackerNet API to fetch real-time train predictions, which include the 5-digit Leading Car Number (LCN) for trains on lines with modern signalling systems (TBTC - Transmission Based Train Control).
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Setup
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Get a free TfL API key at https://api-portal.tfl.gov.uk/
+   - Subscribe to the **TrackernetFeedPublic** product
+4. Create a `.env` file based on `.env.example`:
+   ```
+   VITE_TFL_API_KEY=your_api_key_here
+   ```
+5. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Tech Stack
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- React + TypeScript
+- Vite
+- Tailwind CSS
+- PWA (vite-plugin-pwa)
+- TfL TrackerNet API
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## License
+
+MIT
