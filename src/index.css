@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@theme {
+  /* London Underground line colors */
+  --color-victoria: #0098D4;
+  --color-jubilee: #A0A5A9;
+  --color-northern: #000000;
+  --color-central: #E32017;
+  --color-metropolitan: #9B0056;
+  --color-district: #00782A;
+  --color-hammersmith: #F3A9BB;
+  --color-circle: #FFD300;
+  --color-bakerloo: #B36305;
+  --color-piccadilly: #003688;
+}
+
+/* Base styles for mobile-first PWA */
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  @apply bg-gray-50 text-gray-900 min-h-screen;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Safe area insets for notched devices */
+.safe-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
